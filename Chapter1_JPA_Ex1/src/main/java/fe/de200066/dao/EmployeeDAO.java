@@ -104,4 +104,30 @@ public class EmployeeDAO {
             em.close();
         }
     }
+    public boolean delete(Long id) {
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction tx = em.getTransaction();
+        try {
+            tx.begin();
+            // 1. Tìm entity để đưa vào trạng thái Managed
+            Employee emp = em.find(Employee.class, id);
+
+            // 2. Kiểm tra != null trước khi remove để tránh IllegalArgumentException
+            if (emp != null) {
+                em.remove(emp); // Chuyển entity sang trạng thái Removed
+                tx.commit();    // Sinh câu lệnh SQL: DELETE FROM employees WHERE id = ?
+                return true;
+            } else {
+                tx.commit();
+                return false;   // Không tìm thấy nhân viên để xóa
+            }
+        } catch (Exception ex) {
+            if (tx.isActive()) {
+                tx.rollback();
+            }
+            throw ex;
+        } finally {
+            em.close();
+        }
+    }
 }
