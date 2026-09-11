@@ -8,30 +8,34 @@ import jakarta.persistence.Persistence;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("hsf302FU");
         EmployeeDAO dao = new EmployeeDAO(emf);
 
-        // 1. Khởi tạo đối tượng -> Trạng thái: New / Transient (chưa có ID, chưa quản lý bởi JPA)
-        Employee emp = new Employee(
-                "Nguyen Van A",
-                "anguyen@gmail.com",
-                new BigDecimal("15000000.00"),
-                Gender.MALE,
-                LocalDate.of(2022, 5, 10),
-                true
-        );
+        // 1. Test findById với ID tồn tại
+        Long searchId = 1L;
+        Employee emp = dao.findById(searchId);
+        if (emp != null) {
+            System.out.println("Tìm thấy nhân viên ID " + searchId + ": " + emp);
+            System.out.println("-> Họ tên: " + emp.getFullName() + ", Lương: " + emp.getSalary());
+        } else {
+            System.out.println("Không tìm thấy nhân viên ID " + searchId);
+        }
+        // 2. Test findById với ID không tồn tại (kiểm tra xem có trả về null không)
+        Long notExistId = 999L;
+        Employee notFoundEmp = dao.findById(notExistId);
+        System.out.println("Tìm ID " + notExistId + " (kỳ vọng null): " + notFoundEmp);
+        // 3. Test findAll()
+        System.out.println("\n--- Danh sách tất cả nhân viên ---");
+        List<Employee> list = dao.findAll();
+        for (Employee e : list) {
+            System.out.println(e);
+        }
+        System.out.println("Tổng số nhân viên: " + list.size());
 
-        System.out.println("Trước khi save - ID: " + emp.getId()); // In ra: null
-
-        // 2. Gọi save() -> Trong persist(): Managed -> Sau khi commit & close(): Detached
-        dao.save(emp);
-
-        // 3. Kiểm tra tiêu chí Checklist TODO 0.3
-        System.out.println("Sau khi save - ID đã tự sinh: " + emp.getId());
-        System.out.println("Thâm niên làm việc: " + emp.getYearsOfService() + " năm");
 
         emf.close();
     }
