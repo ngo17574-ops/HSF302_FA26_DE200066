@@ -85,4 +85,23 @@ public class EmployeeDAO {
             em.close();
         }
     }
+    public Employee update(Employee e) {
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction tx = em.getTransaction();
+        try {
+            tx.begin();
+            // em.merge(e) sẽ copy toàn bộ dữ liệu mới từ object detached 'e'
+            // vào 1 instance managed trong session và sinh câu lệnh SQL UPDATE khi commit
+            Employee updatedEmployee = em.merge(e);
+            tx.commit();
+            return updatedEmployee;
+        } catch (Exception ex) {
+            if (tx.isActive()) {
+                tx.rollback();
+            }
+            throw ex;
+        } finally {
+            em.close();
+        }
+    }
 }
