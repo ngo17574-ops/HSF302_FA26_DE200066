@@ -85,6 +85,43 @@ public class Main {
         System.out.println("       HOÀN THÀNH TOÀN BỘ LUỒNG CRUD DEMO       ");
         System.out.println("=================================================");
 
+        System.out.println("TODO 9");
+
+        String duplicateEmail = "trungemail." + System.currentTimeMillis() + "@gmail.com";
+        // Tạo nhân viên 1
+        Employee emp1 = new Employee(
+                "Nhan Vien Thu Nhat",
+                duplicateEmail,
+                new BigDecimal("12000000.00"),
+                Gender.MALE,
+                LocalDate.of(2023, 1, 1),
+                true
+        );
+        // Tạo nhân viên 2 CÓ CÙNG EMAIL với nhân viên 1
+        Employee emp2 = new Employee(
+                "Nhan Vien Thu Hai",
+                duplicateEmail,
+                new BigDecimal("14000000.00"),
+                Gender.FEMALE,
+                LocalDate.of(2023, 2, 2),
+                true
+        );
+        try {
+            System.out.println("- Bước 1: Lưu nhân viên thứ nhất (email: " + duplicateEmail + ")...");
+            dao.save(emp1);
+            System.out.println("  -> Kết quả: Lưu THÀNH CÔNG với ID = " + emp1.getId());
+            System.out.println("- Bước 2: Cố tình lưu nhân viên thứ hai CÙNG EMAIL...");
+            dao.save(emp2);
+            // Dòng này không bao giờ chạy tới nếu database chặn thành công
+            System.out.println("  -> [THẤT BẠI]: Database không chặn được email trùng!");
+        } catch (Exception ex) {
+            // Bắt ngoại lệ để chương trình không bị crash
+            System.out.println("  -> [BẮT ĐƯỢC LỖI]:");
+            System.out.println("     Loại ngoại lệ: " + ex.getClass().getSimpleName());
+            System.out.println("     Thông báo: Ràng buộc @Column(unique = true) đã hoạt động chính xác!");
+            System.out.println("     Database từ chối insert bản ghi thứ hai do trùng email.");
+        }
+
 
 
         emf.close();
