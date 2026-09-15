@@ -100,5 +100,8 @@ public class DepartmentDAO {
             em.close();
         }
     }
-    //
+    public List<Department> findAll(EntityManager em) {
+        return em.createQuery("SELECT d FROM Department d", Department.class)
+                .getResultList();
+    }
 }
