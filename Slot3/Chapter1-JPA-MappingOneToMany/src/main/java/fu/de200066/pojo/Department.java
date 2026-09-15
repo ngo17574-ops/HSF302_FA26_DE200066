@@ -12,7 +12,7 @@ public class Department {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // Ràng buộc UNIQUE 
+    // Ràng buộc UNIQUE
     @Column(name = "name", unique = true, nullable = false)
     private String name;
 
@@ -64,6 +64,20 @@ public class Department {
 
     public void setEmployees(List<Employee> employees) {
         this.employees = employees;
+    }
+
+    public void addEmployee(Employee employee) {
+        if (employee != null) {
+            this.employees.add(employee);
+            employee.setDepartment(this); // Đồng bộ ngược lại cho Employee
+        }
+    }
+
+    public void removeEmployee(Employee employee) {
+        if (employee != null) {
+            this.employees.remove(employee);
+            employee.setDepartment(null); // Hủy tham chiếu của Employee
+        }
     }
 
     @Override
