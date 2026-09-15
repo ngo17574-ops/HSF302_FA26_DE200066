@@ -1,5 +1,6 @@
 package fu.de200066.util;
 
+import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 
@@ -15,8 +16,13 @@ public class JPAUtil {
         return EMF;
     }
 
+
+    public static EntityManager getEntityManager() {
+        return EMF.createEntityManager();
+    }
+
     public static void close() {
-        if (EMF.isOpen()) {
+        if (EMF != null && EMF.isOpen()) {
             EMF.close();
         }
     }
