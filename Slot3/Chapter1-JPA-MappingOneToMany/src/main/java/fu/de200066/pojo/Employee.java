@@ -40,7 +40,7 @@ public class Employee {
     public Employee() {
     }
 
-    // 2. Constructor tham số cho kịch bản test
+    // 2. Constructor
     public Employee(String email, String fullName, Gender gender, BigDecimal salary, LocalDate hireDate) {
         this.email = email;
         this.fullName = fullName;

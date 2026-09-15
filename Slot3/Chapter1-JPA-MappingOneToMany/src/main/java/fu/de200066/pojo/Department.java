@@ -1,6 +1,8 @@
 package fu.de200066.pojo;
 
 import jakarta.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "departments")
@@ -10,18 +12,22 @@ public class Department {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // Ràng buộc UNIQUE theo yêu cầu đề bài
+    // Ràng buộc UNIQUE 
     @Column(name = "name", unique = true, nullable = false)
     private String name;
 
     @Column(name = "location")
     private String location;
 
-    // 1. Constructor không tham số (Bắt buộc theo chuẩn JPA specification)
+    // TODO 2.3: Inverse side - 1 phòng ban có nhiều nhân viên
+    @OneToMany(mappedBy = "department", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Employee> employees = new ArrayList<>();
+
+    // 1. Constructor
     public Department() {
     }
 
-    // 2. Constructor có tham số tiện dụng cho việc khởi tạo
+    // 2. Constructor
     public Department(String name, String location) {
         this.name = name;
         this.location = location;
@@ -52,12 +58,21 @@ public class Department {
         this.location = location;
     }
 
+    public List<Employee> getEmployees() {
+        return employees;
+    }
+
+    public void setEmployees(List<Employee> employees) {
+        this.employees = employees;
+    }
+
     @Override
     public String toString() {
         return "Department{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", location='" + location + '\'' +
+                ", totalEmployees=" + (employees != null ? employees.size() : 0) +
                 '}';
     }
 }
