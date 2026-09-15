@@ -87,4 +87,17 @@ public class DepartmentDAO {
             em.close();
         }
     }
+    public Department findByIdWithEmployees(Long id) {
+        EntityManager em = JPAUtil.getEntityManager();
+        try {
+            String jpql = "SELECT d FROM Department d JOIN FETCH d.employees WHERE d.id = :id";
+            return em.createQuery(jpql, Department.class)
+                    .setParameter("id", id)
+                    .getSingleResult();
+        } catch (jakarta.persistence.NoResultException e) {
+            return null; // Trả về null an toàn nếu không tìm thấy bản ghi
+        } finally {
+            em.close();
+        }
+    }
 }
