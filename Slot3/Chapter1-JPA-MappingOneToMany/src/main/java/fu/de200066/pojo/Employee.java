@@ -21,24 +21,26 @@ public class Employee {
     @Column(name = "hire_date")
     private LocalDate hireDate;
 
-    // Ràng buộc UNIQUE cho email
     @Column(name = "email", unique = true, nullable = false)
     private String email;
 
-    // Bắt buộc EnumType.STRING để lưu chuỗi thay vì index số 0, 1, 2
     @Enumerated(EnumType.STRING)
     @Column(name = "gender")
     private Gender gender;
 
-    // Kiểu boolean nguyên thủy
     @Column(name = "active")
     private boolean active = true;
 
-    // 1. Constructor mặc định không tham số
+    // TODO 2.2: Owning side - Quản lý Foreign Key "department_id"
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "department_id", nullable = false)
+    private Department department;
+
+    // 1. No-arg constructor
     public Employee() {
     }
 
-    // 2. Constructor tiện lợi khớp với kịch bản test ở TODO 2.4 & 2.7
+    // 2. Constructor tham số cho kịch bản test
     public Employee(String email, String fullName, Gender gender, BigDecimal salary, LocalDate hireDate) {
         this.email = email;
         this.fullName = fullName;
@@ -105,6 +107,14 @@ public class Employee {
         this.active = active;
     }
 
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
+
     @Override
     public String toString() {
         return "Employee{" +
@@ -115,6 +125,7 @@ public class Employee {
                 ", email='" + email + '\'' +
                 ", gender=" + gender +
                 ", active=" + active +
+                ", departmentId=" + (department != null ? department.getId() : null) +
                 '}';
     }
 }
