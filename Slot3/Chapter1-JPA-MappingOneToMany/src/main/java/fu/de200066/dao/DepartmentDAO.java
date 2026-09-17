@@ -104,4 +104,14 @@ public class DepartmentDAO {
         return em.createQuery("SELECT d FROM Department d", Department.class)
                 .getResultList();
     }
+    public List<Department> findAllWithEmployees() {
+        EntityManager em = JPAUtil.getEntityManager();
+        try {
+            String jpql = "SELECT DISTINCT d FROM Department d JOIN FETCH d.employees";
+            return em.createQuery(jpql, Department.class)
+                    .getResultList();
+        } finally {
+            em.close();
+        }
+    }
 }

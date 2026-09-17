@@ -31,6 +31,16 @@ public class Main {
             em.close();
         }
 
+        List<Department> optimizedList = departmentDAO.findAllWithEmployees();
+        System.out.println("-> Đã load xong Department kèm Employees (Chỉ đúng 1 Query duy nhất!)");
+        // Loop duyệt danh sách -> Lúc này hoàn toàn KHÔNG CÒN câu SQL nào sinh ra thêm
+        System.out.println("-> Bắt đầu loop qua danh sách đã tối ưu:");
+        for (Department d : optimizedList) {
+            System.out.println("Phòng ban: " + d.getName() + " có " + d.getEmployees().size() + " nhân viên.");
+        }
+        // Đóng EntityManagerFactory khi chương trình kết thúc
+        JPAUtil.close();
+
 
     }
 }
