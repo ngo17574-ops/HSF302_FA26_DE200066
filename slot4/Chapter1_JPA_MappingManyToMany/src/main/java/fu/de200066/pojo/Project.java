@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -98,6 +99,19 @@ public class Project {
 
     public void setEmployees(Set<Employee> employees) {
         this.employees = employees;
+    }
+
+    // Lý do: Tương tự như Employee, tránh dùng id tự tăng của DB để không làm sai lệch
+    // cấu trúc bảng băm của Set khi đối tượng chuyển từ transient sang persistent.
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Project project)) return false;
+        return Objects.equals(projectCode, project.projectCode);
+    }
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(projectCode);
     }
 
     @Override

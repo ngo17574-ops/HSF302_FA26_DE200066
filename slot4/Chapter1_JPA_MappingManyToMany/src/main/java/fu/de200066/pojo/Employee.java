@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -52,6 +53,22 @@ public class Employee {
         this.hireDate = hireDate;
         this.gender = gender;
         this.active = true;
+    }
+
+    // Lý do không dùng id:
+    // 1. Khi entity ở trạng thái transient (chưa persist), id là null.
+    // 2. Nếu thêm vào Set trước khi persist, sau khi persist DB sinh ra id mới
+    //    sẽ làm thay đổi hashCode, phá vỡ cấu trúc của HashSet (bucket lookup bị sai).
+    // Do đó sử dụng email (business key bất biến, unique) để đảm bảo an toàn.
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Employee employee)) return false;
+        return Objects.equals(email, employee.email);
+    }
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(email);
     }
 
     // Getters & Setters
