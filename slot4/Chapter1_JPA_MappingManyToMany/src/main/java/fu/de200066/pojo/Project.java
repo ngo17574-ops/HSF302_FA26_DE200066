@@ -29,7 +29,7 @@ public class Project {
     @Column(name = "end_date")
     private LocalDate endDate;
 
-
+//5.3
     @ManyToMany(mappedBy = "projects")
     private Set<Employee> employees = new HashSet<>();
 

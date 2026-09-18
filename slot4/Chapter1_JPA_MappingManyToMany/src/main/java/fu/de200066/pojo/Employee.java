@@ -33,7 +33,7 @@ public class Employee {
     @Column(name = "active")
     private boolean active = true;
 
-    
+//5.2
     @ManyToMany
     @JoinTable(
             name = "employee_project",
