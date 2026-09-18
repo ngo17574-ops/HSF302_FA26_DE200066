@@ -54,6 +54,16 @@ public class Employee {
         this.gender = gender;
         this.active = true;
     }
+
+    public Employee(String fullName, String email, BigDecimal salary, LocalDate hireDate, Gender gender, boolean active) {
+        this.fullName = fullName;
+        this.email = email;
+        this.salary = salary;
+        this.hireDate = hireDate;
+        this.gender = gender;
+        this.active = active;
+    }
+
     //5.4
     // Lý do không dùng id:
     // 1. Khi entity ở trạng thái transient (chưa persist), id là null.
