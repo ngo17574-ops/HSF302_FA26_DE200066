@@ -54,7 +54,7 @@ public class Employee {
         this.gender = gender;
         this.active = true;
     }
-
+    //5.4
     // Lý do không dùng id:
     // 1. Khi entity ở trạng thái transient (chưa persist), id là null.
     // 2. Nếu thêm vào Set trước khi persist, sau khi persist DB sinh ra id mới
@@ -69,6 +69,13 @@ public class Employee {
     @Override
     public int hashCode() {
         return Objects.hashCode(email);
+    }
+    // 5.5
+    public void assignToProject(Project p) {
+        if (p != null) {
+            this.projects.add(p);
+            p.getEmployees().add(this);
+        }
     }
 
     // Getters & Setters

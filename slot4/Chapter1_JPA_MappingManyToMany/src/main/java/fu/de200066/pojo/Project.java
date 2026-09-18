@@ -100,7 +100,7 @@ public class Project {
     public void setEmployees(Set<Employee> employees) {
         this.employees = employees;
     }
-
+    //5.4
     // Lý do: Tương tự như Employee, tránh dùng id tự tăng của DB để không làm sai lệch
     // cấu trúc bảng băm của Set khi đối tượng chuyển từ transient sang persistent.
     @Override
