@@ -16,7 +16,7 @@ public class Main {
         EmployeeDAO employeeDAO = new EmployeeDAO();
         ProjectDAO projectDAO = new ProjectDAO();
 
-        
+
 
         // 1. Tạo 3 Employee theo đúng thông tin yêu cầu
         Employee emp1 = new Employee(
@@ -111,6 +111,19 @@ public class Main {
             }
             System.out.println();
         }
+
+        // 7.
+        //5.8
+
+        List<Object[]> stats = projectDAO.getActiveEmployeeStatsByProject();
+        for (Object[] row : stats) {
+            String projectName = (String) row[0];
+            Long count = (Long) row[1];
+            BigDecimal totalSalary = (BigDecimal) row[2];
+            System.out.printf("Dự án: %-26s | Số NV Active: %d | Tổng Lương: %,.2f VND%n",
+                    projectName, count, totalSalary);
+        }
+        System.out.println();
 
         // Đóng EntityManagerFactory khi kết thúc chương trình
         JPAUtil.close();
