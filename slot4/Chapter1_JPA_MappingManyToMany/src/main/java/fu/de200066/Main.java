@@ -124,7 +124,19 @@ public class Main {
                     projectName, count, totalSalary);
         }
         System.out.println();
+        // 5.10: Tìm các Employee active đang tham gia > 1 project
 
+        List<Employee> multiProjectEmps = employeeDAO.findActiveEmployeesWithMultipleProjects();
+        if (multiProjectEmps.isEmpty()) {
+            System.out.println("Không có nhân viên nào tham gia nhiều hơn 1 dự án.");
+        } else {
+            for (Employee emp : multiProjectEmps) {
+                System.out.println("-> Tìm thấy: " + emp.getFullName() +
+                        " | Email: " + emp.getEmail() +
+                        " | Lương: " + emp.getSalary());
+            }
+        }
+        System.out.println();
         // 8. 5.9: Demo gỡ 1 nhân viên khỏi 1 dự án
 
         System.out.println("-> Tiến hành gỡ nhân viên [" + emp1.getFullName() + "] khỏi dự án [" + prjB.getProjectName() + "]...");
@@ -151,6 +163,7 @@ public class Main {
         System.out.println("-> Kết luận: Bảng 'employee_project' mất đúng 1 dòng liên kết.");
         System.out.println("             Không làm ảnh hưởng hay xóa nhầm Employee/Project gốc!\n");
 
+        System.out.println();
         // Đóng EntityManagerFactory khi kết thúc chương trình
         JPAUtil.close();
     }
