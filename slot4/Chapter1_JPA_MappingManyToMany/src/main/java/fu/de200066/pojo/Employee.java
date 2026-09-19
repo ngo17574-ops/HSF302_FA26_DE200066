@@ -88,6 +88,14 @@ public class Employee {
         }
     }
 
+    // 5.9: Helper method gỡ khỏi dự án, xóa ở cả 2 phía in-memory
+    public void unassignFromProject(Project p) {
+        if (p != null) {
+            this.projects.remove(p);
+            p.getEmployees().remove(this);
+        }
+    }
+
     // Getters & Setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }

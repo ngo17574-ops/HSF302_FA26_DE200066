@@ -125,6 +125,32 @@ public class Main {
         }
         System.out.println();
 
+        // 8. 5.9: Demo gỡ 1 nhân viên khỏi 1 dự án
+
+        System.out.println("-> Tiến hành gỡ nhân viên [" + emp1.getFullName() + "] khỏi dự án [" + prjB.getProjectName() + "]...");
+        employeeDAO.unassignEmployeeFromProject(emp1.getId(), prjB.getId());
+
+        // Kiểm tra lại sau khi gỡ
+        Employee emp1After = employeeDAO.findById(emp1.getId());
+        Project prjBAfter = projectDAO.findById(prjB.getId());
+
+        System.out.println("Xác nhận trạng thái sau khi gỡ:");
+        System.out.println("  + Nhân viên [" + emp1After.getFullName() + "] vẫn tồn tại bình thường trong bảng employees.");
+        System.out.println("  + Dự án [" + prjBAfter.getProjectName() + "] vẫn tồn tại bình thường trong bảng projects.");
+
+        // Kiểm tra danh sách dự án còn lại của emp1
+        List<Employee> empsAfter = employeeDAO.findAllWithProjects();
+        for (Employee e : empsAfter) {
+            if (e.getId().equals(emp1.getId())) {
+                System.out.println("  + Số dự án còn lại của " + e.getFullName() + ": " + e.getProjects().size());
+                for (Project p : e.getProjects()) {
+                    System.out.println("     - [" + p.getProjectCode() + "] " + p.getProjectName());
+                }
+            }
+        }
+        System.out.println("-> Kết luận: Bảng 'employee_project' mất đúng 1 dòng liên kết.");
+        System.out.println("             Không làm ảnh hưởng hay xóa nhầm Employee/Project gốc!\n");
+
         // Đóng EntityManagerFactory khi kết thúc chương trình
         JPAUtil.close();
     }

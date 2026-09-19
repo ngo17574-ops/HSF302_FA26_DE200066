@@ -21,7 +21,7 @@ trustServerCertificate=true"/>
 
             <property name="hibernate.dialect"
                       value="org.hibernate.dialect.SQLServerDialect"/>
-            <property name="hibernate.hbm2ddl.auto" value="update"/>
+            <property name="hibernate.hbm2ddl.auto" value="create"/>
 
             <!-- Bật để đếm số câu SQL khi làm TODO 2.8 / 2.9 -->
             <property name="hibernate.show_sql" value="true"/>

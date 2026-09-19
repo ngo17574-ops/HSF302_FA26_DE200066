@@ -65,6 +65,34 @@ public class EmployeeDAO {
         }
     }
 
+    //  5.9: Gỡ nhân viên khỏi dự án trong 1 Transaction
+    public void unassignEmployeeFromProject(Long employeeId, Long projectId) {
+        EntityManager em = JPAUtil.getEntityManager();
+        EntityTransaction tx = em.getTransaction();
+        try {
+            tx.begin();
+
+            Employee employee = em.find(Employee.class, employeeId);
+            Project project = em.find(Project.class, projectId);
+
+            if (employee != null && project != null) {
+                // Gọi helper method đồng bộ 2 chiều in-memory
+                employee.unassignFromProject(project);
+                // Hibernate Dirty Checking tự động sinh câu lệnh DELETE FROM employee_project WHERE employee_id=? AND project_id=?
+            } else {
+                System.out.println("Không tìm thấy Employee (ID: " + employeeId + ") hoặc Project (ID: " + projectId + ")");
+            }
+
+            tx.commit();
+        } catch (Exception e) {
+            if (tx.isActive()) tx.rollback();
+            throw e;
+        } finally {
+            em.close();
+        }
+    }
+
+
     public List<Employee> findAll() {
         EntityManager em = JPAUtil.getEntityManager();
         try {
