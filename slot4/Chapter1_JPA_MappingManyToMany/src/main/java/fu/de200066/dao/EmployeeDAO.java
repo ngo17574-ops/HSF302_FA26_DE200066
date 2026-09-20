@@ -121,4 +121,32 @@ public class EmployeeDAO {
             em.close();
         }
     }
+    // 5.11: Soft delete / Deactivate Employee
+    // Giải thích nghiệp vụ:
+    // 1. Khi nhân viên nghỉ việc, KHÔNG NÊN tự động gỡ nhân viên khỏi tất cả project
+    //    và KHÔNG ĐƯỢC dùng cascade REMOVE tự động trong quan hệ N-N.
+    // 2. Lý do: Dữ liệu phân công là dữ liệu lịch sử (Audit trail). Nếu xóa dòng trong
+    //    employee_project, hệ thống sẽ mất dấu vết đóng góp của nhân sự vào dự án đó.
+    // 3. Cách xử lý phù hợp: Chỉ cập nhật cờ active = false (Soft Delete).
+    //    Các câu query hiện hành sẽ lọc theo "WHERE e.active = true", dữ liệu cũ vẫn còn nguyên.
+    public void deactivateEmployee(Long employeeId) {
+        EntityManager em = JPAUtil.getEntityManager();
+        EntityTransaction tx = em.getTransaction();
+        try {
+            tx.begin();
+            Employee employee = em.find(Employee.class, employeeId);
+            if (employee != null) {
+                employee.setActive(false);
+                // Chỉ update active = false, không xóa liên kết trong bảng employee_project
+            } else {
+                System.out.println("Không tìm thấy Employee với ID: " + employeeId);
+            }
+            tx.commit();
+        } catch (Exception e) {
+            if (tx.isActive()) tx.rollback();
+            throw e;
+        } finally {
+            em.close();
+        }
+    }
 }

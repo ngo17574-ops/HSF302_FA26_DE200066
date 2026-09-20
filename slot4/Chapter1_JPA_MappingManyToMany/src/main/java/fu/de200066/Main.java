@@ -164,6 +164,38 @@ public class Main {
         System.out.println("             Không làm ảnh hưởng hay xóa nhầm Employee/Project gốc!\n");
 
         System.out.println();
+
+        // 10. 5.11: Demo deactivateEmployee (Soft Delete)
+        System.out.println("==================================================");
+        System.out.println("TODO 5.11: DEMO VÔ HIỆU HÓA NHÂN VIÊN (DEACTIVATE):");
+        System.out.println("==================================================");
+        System.out.println("-> Tiến hành deactivate nhân viên [" + emp2.getFullName() + "]...");
+        employeeDAO.deactivateEmployee(emp2.getId());
+        Employee emp2After = employeeDAO.findById(emp2.getId());
+        System.out.println("Kiểm tra sau khi deactivate:");
+        System.out.println("  + Trạng thái active của " + emp2After.getFullName() + ": " + emp2After.isActive());
+        // Kiểm tra lịch sử dự án vẫn còn nguyên trong DB
+        List<Employee> allEmps = employeeDAO.findAllWithProjects();
+        for (Employee e : allEmps) {
+            if (e.getId().equals(emp2.getId())) {
+                System.out.println("  + Lịch sử tham gia dự án của " + e.getFullName() + " vẫn còn: " + e.getProjects().size() + " dự án");
+                for (Project p : e.getProjects()) {
+                    System.out.println("     - [" + p.getProjectCode() + "] " + p.getProjectName());
+                }
+            }
+        }
+        // Chạy lại thống kê 5.8 để chứng minh emp2 không còn được tính vào danh sách active
+        System.out.println("\nThống kê lại số NV active theo dự án sau khi emp2 nghỉ việc:");
+        List<Object[]> statsAfterDeactivate = projectDAO.getActiveEmployeeStatsByProject();
+        for (Object[] row : statsAfterDeactivate) {
+            String projectName = (String) row[0];
+            Long count = (Long) row[1];
+            BigDecimal totalSalary = (BigDecimal) row[2];
+            System.out.printf("  + Dự án: %-26s | Số NV Active: %d | Tổng Lương: %,.2f VND%n",
+                    projectName, count, totalSalary);
+        }
+        System.out.println();
+
         // Đóng EntityManagerFactory khi kết thúc chương trình
         JPAUtil.close();
     }
