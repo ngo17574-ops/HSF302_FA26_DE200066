@@ -29,4 +29,6 @@ public interface StudentService {
     List<Student> findGoodStudents(String deptCode, double minGpa);
     // TODO 13
     List<Student> searchByKeyword(String keyword);
+    // TODO 15
+    List<Student> findAboveAverageGpa();
 }
