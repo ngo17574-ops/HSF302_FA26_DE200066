@@ -44,4 +44,6 @@ public interface StudentService {
     int deactivateLowGpa(double threshold);
     // TODO 23
     long deleteInactiveStudents();
+    // TODO 24 (Bonus)
+    List<Student> search(String kw, String deptCode, Double minGpa, Boolean active);
 }

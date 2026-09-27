@@ -177,5 +177,9 @@ public class ExerciseRunner implements CommandLineRunner {
         System.out.println("Students left: " + studentService.count());
         printList("Final statistics", departmentService.getStatistics());
     }
-    private void todo24() {}
+    private void todo24() {
+        title("TODO 24 (Bonus): Specification");
+        printList("search(null, AI, 3.0, true)", studentService.search(null, "AI", 3.0, true));
+        printList("search(van, null, null, null)", studentService.search("van", null, null, null));
+    }
 }
