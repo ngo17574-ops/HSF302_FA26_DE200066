@@ -4,7 +4,11 @@ import com.hsf302.ch4.pojo.Student;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
+import java.util.Optional;
+
 public interface StudentRepository extends JpaRepository<Student, Long>,
         JpaSpecificationExecutor<Student> {
-    // Sẽ bổ sung query method dần
+    Optional<Student> findByStudentCode(String studentCode);   // WHERE student_code = ?
+    boolean existsByEmail(String email);                        // SELECT CASE WHEN COUNT(...) > 0 ...
+    long countByActiveTrue();                                   // WHERE active = 1 (True không cần tham số)
 }

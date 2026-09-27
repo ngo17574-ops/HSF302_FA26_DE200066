@@ -11,4 +11,7 @@ public interface StudentService {
     Optional<Student> findById(Long id);
     List<Student> findAllOrderByGpaDesc();                              // 7a
     Page<Student> findPage(int pageIndex, int size, String sortField);  // 7b
+    Optional<Student> findByStudentCode(String studentCode);   // 8a
+    boolean isEmailExisted(String email);                      // 8b
+    long countActive();                                        // 8c
 }
