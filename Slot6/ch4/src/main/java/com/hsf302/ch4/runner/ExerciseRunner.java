@@ -1,10 +1,12 @@
 package com.hsf302.ch4.runner;
 
+import com.hsf302.ch4.pojo.Department;
 import com.hsf302.ch4.pojo.Gender;
 import com.hsf302.ch4.pojo.Student;
 import com.hsf302.ch4.service.DepartmentService;
 import com.hsf302.ch4.service.StudentService;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.LazyInitializationException;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.data.domain.Page;
@@ -117,7 +119,19 @@ public class ExerciseRunner implements CommandLineRunner {
         title("TODO 15: Subquery - GPA above average");
         printList("GPA > AVG", studentService.findAboveAverageGpa());
     }
-    private void todo16() {}
+    private void todo16() {title("TODO 16: LazyInitializationException & JOIN FETCH");
+        // (a) Tái hiện lỗi ngoài Session
+        Department ai = departmentService.findByCode("AI").orElseThrow();
+        try {
+            System.out.println("AI has " + ai.getStudents().size() + " students");
+        } catch (LazyInitializationException e) {
+            System.out.println("(a) Caught: " + e.getClass().getSimpleName());
+            System.out.println("    " + e.getMessage());
+        }
+        // (b) Khắc phục an toàn bằng JOIN FETCH
+        Department aiFull = departmentService.getWithStudents("AI");
+        System.out.println("(b) " + aiFull);
+        aiFull.getStudents().forEach(s -> System.out.println("     " + s));}
     private void todo17() {}
     private void todo18() {}
     private void todo19() {}
