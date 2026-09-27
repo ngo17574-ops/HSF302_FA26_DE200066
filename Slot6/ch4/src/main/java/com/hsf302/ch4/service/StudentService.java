@@ -38,4 +38,6 @@ public interface StudentService {
     List<StudentSummary> getActiveSummaries();
     // TODO 19
     Page<Student> findActiveByDepartment(String deptCode, int pageIndex, int size);
+    // TODO 20
+    Student updateGpa(String studentCode, double newGpa);
 }
