@@ -14,4 +14,7 @@ public interface StudentService {
     Optional<Student> findByStudentCode(String studentCode);   // 8a
     boolean isEmailExisted(String email);                      // 8b
     long countActive();                                        // 8c
+    List<Student> searchByName(String keyword);        // 9a
+    List<Student> findByEmailDomain(String domain);    // 9b
+    List<Student> findWithoutEmail();                  // 9c
 }
