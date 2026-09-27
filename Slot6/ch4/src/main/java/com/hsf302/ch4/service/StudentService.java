@@ -36,4 +36,6 @@ public interface StudentService {
     List<Student> findTopNInDepartment(String deptCode, int n);
     // TODO 18
     List<StudentSummary> getActiveSummaries();
+    // TODO 19
+    Page<Student> findActiveByDepartment(String deptCode, int pageIndex, int size);
 }
