@@ -141,4 +141,9 @@ public class StudentServiceImpl implements StudentService {
         s.setGpa(newGpa); // Chỉ cần gọi setter!
         return s;         // Khi kết thúc transaction, Hibernate tự so sánh và sinh câu lệnh UPDATE xuống DB
     }
+    @Override
+    @Transactional // Bắt buộc khi thực hiện DML update/delete
+    public int deactivateLowGpa(double threshold) {
+        return studentRepository.deactivateLowGpa(threshold);
+    }
 }

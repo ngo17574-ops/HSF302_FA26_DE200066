@@ -40,4 +40,6 @@ public interface StudentService {
     Page<Student> findActiveByDepartment(String deptCode, int pageIndex, int size);
     // TODO 20
     Student updateGpa(String studentCode, double newGpa);
+    // TODO 21
+    int deactivateLowGpa(double threshold);
 }
