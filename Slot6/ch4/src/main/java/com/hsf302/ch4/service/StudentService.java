@@ -22,4 +22,7 @@ public interface StudentService {
     List<Student> findByGpaRange(double min, double max);   // 10a
     List<Student> findActiveByGender(Gender gender);        // 10b
     List<Student> findBornAfter(LocalDate date);            // 10c
+    List<Student> findByDepartment(String deptCode);    // 11a
+    long countByDepartment(String deptCode);            // 11b
+    List<Student> findTop3ByGpa();                      // 11c
 }
