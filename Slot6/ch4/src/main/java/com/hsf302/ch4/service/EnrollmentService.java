@@ -8,4 +8,8 @@ import java.util.List;
 public interface EnrollmentService {
     List<Course> getCoursesOfStudent(String studentCode);
     List<Student> getStudentsOfCourse(String courseCode);
+    //todo 9
+    List<Student> findStudentsInCourse(String courseCode);
+    long countStudentsInCourse(String courseCode);
+    List<Student> findActiveStudentsInCourse(String courseCode);
 }

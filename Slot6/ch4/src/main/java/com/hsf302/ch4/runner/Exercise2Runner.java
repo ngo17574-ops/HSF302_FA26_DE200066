@@ -34,7 +34,7 @@ public class Exercise2Runner implements CommandLineRunner {
     }
 
    private void partB() { todo6(); todo7(); }
-   private void partC() { todo8();  }
+   private void partC() { todo8(); todo9(); todo10(); }
 //    private void partD() { todo12(); todo13(); todo14(); todo15(); todo16(); todo17(); todo18(); todo19(); }
 //    private void bonus() { todo25(); }
 //    private void partE() { todo20(); todo21(); todo22(); todo23(); todo24(); }
@@ -83,6 +83,21 @@ public class Exercise2Runner implements CommandLineRunner {
         printList("(b) Semester SU26", courseService.findBySemester("SU26"));
         System.out.println("(c) Courses in FA26: " + courseService.countBySemester("FA26"));
     }
+    private void todo9() {
+        title("TODO 9: derived query through collection courses");
+        printList("(a) Students of PRJ301", enrollmentService.findStudentsInCourse("PRJ301"));
+        System.out.println("(b) Students of HSF302: " + enrollmentService.countStudentsInCourse("HSF302"));
+        printList("(c) Active students of PRJ301", enrollmentService.findActiveStudentsInCourse("PRJ301"));
+    }
+    private void todo10() {
+        title("TODO 10: derived query from inverse side, Distinct");
+        printList("(a) Courses of SE002", courseService.findCoursesOfStudent("SE002"));
+        printList("(b1) Courses of AI students - no Distinct", courseService.findCoursesOfDepartment("AI", false));
+        printList("(b2) Courses of AI students - Distinct", courseService.findCoursesOfDepartment("AI", true));
+    }
+
+
+
 
 
 

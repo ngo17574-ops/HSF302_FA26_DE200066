@@ -30,6 +30,10 @@ public interface StudentRepository extends JpaRepository<Student, Long>,
     List<Student> findByDepartment_CodeOrderByFullNameAsc(String code);   // JOIN departments ... WHERE d.code = ?
     long countByDepartment_Code(String code);
     List<Student> findTop3ByOrderByGpaDesc();                              // SELECT TOP 3 ... ORDER BY gpa DESC
+    //todo 9 ex2
+    List<Student> findByCourses_CodeOrderByFullNameAsc(String courseCode);
+    long countByCourses_Code(String courseCode);
+    List<Student> findByCourses_CodeAndActiveTrueOrderByFullNameAsc(String courseCode);
     // TODO 12
     @Query("SELECT s FROM Student s " +
             "WHERE s.department.code = :code AND s.gpa >= :minGpa " +
