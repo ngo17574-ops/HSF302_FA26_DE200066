@@ -41,17 +41,20 @@
     <div class="row g-3 mb-4">
         <div class="col-md-4">
             <div class="card stat-card text-bg-primary"><div class="card-body">
-                <div>Tổng số sinh viên</div><div class="value">0</div>
+                <div>Tổng số sinh viên</div>
+                <div class="value" th:text="${totalStudents}">0</div>
             </div></div>
         </div>
         <div class="col-md-4">
             <div class="card stat-card text-bg-success"><div class="card-body">
-                <div>GPA trung bình</div><div class="value">0.00</div>
+                <div>GPA trung bình</div>
+                <div class="value" th:text="${#numbers.formatDecimal(avgGpa, 1, 2)}">0.00</div>
             </div></div>
         </div>
         <div class="col-md-4">
             <div class="card stat-card text-bg-info"><div class="card-body">
-                <div>Đang học</div><div class="value">0</div>
+                <div>Đang học</div>
+                <div class="value" th:text="${#lists.size(students.?[active])}">0</div>
             </div></div>
         </div>
     </div>
