@@ -69,12 +69,21 @@
             </tr>
             </thead>
             <tbody>
-            <!-- TODO 11, 12, 13.2 -->
-            <tr>
-                <td>1</td><td>SE180001</td><td>NGUYỄN VĂN A</td><td>a@fpt.edu.vn</td>
-                <td>01/01/2004</td><td>22</td><td>Kỹ thuật phần mềm</td><td>8.00</td>
+            <!-- TODO 11 -->
+            <tr th:each="s, stat : ${students}">
+                <td th:text="${stat.count}">1</td>
+                <td th:text="${s.studentCode}">SE180001</td>
+                <td th:text="${#strings.toUpperCase(s.fullName)}">NGUYỄN VĂN A</td>
+                <td th:text="${s.email}">a@fpt.edu.vn</td>
+                <td th:text="${#temporals.format(s.dateOfBirth, 'dd/MM/yyyy')}">01/01/2004</td>
+                <td th:text="${s.age}">22</td>
+                <!-- TODO 12: Ngành -->
+                <td>Kỹ thuật phần mềm</td>
+                <td th:text="${#numbers.formatDecimal(s.gpa, 1, 2)}">8.00</td>
+                <!-- TODO 12: Xếp loại & Trạng thái -->
                 <td><span class="badge text-bg-primary">Giỏi</span></td>
                 <td><span class="badge text-bg-success">Đang học</span></td>
+                <!-- TODO 13.2: Thao tác -->
                 <td>
                     <a href="#" class="btn btn-sm btn-outline-info">Xem</a>
                     <a href="#" class="btn btn-sm btn-outline-warning">Sửa</a>
