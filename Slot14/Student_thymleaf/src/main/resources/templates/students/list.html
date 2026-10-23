@@ -69,20 +69,29 @@
             </tr>
             </thead>
             <tbody>
-            <!-- TODO 11 -->
-            <tr th:each="s, stat : ${students}">
+            <!-- TODO 11 + 12 -->
+            <tr th:each="s, stat : ${students}"
+                th:classappend="${s.gpa lt 5} ? 'table-danger'">
                 <td th:text="${stat.count}">1</td>
                 <td th:text="${s.studentCode}">SE180001</td>
                 <td th:text="${#strings.toUpperCase(s.fullName)}">NGUYỄN VĂN A</td>
                 <td th:text="${s.email}">a@fpt.edu.vn</td>
                 <td th:text="${#temporals.format(s.dateOfBirth, 'dd/MM/yyyy')}">01/01/2004</td>
                 <td th:text="${s.age}">22</td>
-                <!-- TODO 12: Ngành -->
-                <td>Kỹ thuật phần mềm</td>
+                <td th:text="${majors[s.major]}">Kỹ thuật phần mềm</td>
                 <td th:text="${#numbers.formatDecimal(s.gpa, 1, 2)}">8.00</td>
-                <!-- TODO 12: Xếp loại & Trạng thái -->
-                <td><span class="badge text-bg-primary">Giỏi</span></td>
-                <td><span class="badge text-bg-success">Đang học</span></td>
+                <td th:switch="${s.rank}">
+                    <span th:case="'Xuất sắc'"   class="badge text-bg-success" th:text="${s.rank}"></span>
+                    <span th:case="'Giỏi'"       class="badge text-bg-primary" th:text="${s.rank}"></span>
+                    <span th:case="'Khá'"        class="badge text-bg-info"    th:text="${s.rank}"></span>
+                    <span th:case="'Trung bình'" class="badge text-bg-warning" th:text="${s.rank}"></span>
+                    <span th:case="*"            class="badge text-bg-danger"  th:text="${s.rank}"></span>
+                </td>
+                <td>
+                    <span class="badge"
+                          th:classappend="${s.active} ? 'text-bg-success' : 'text-bg-secondary'"
+                          th:text="${s.active} ? 'Đang học' : 'Bảo lưu'">Đang học</span>
+                </td>
                 <!-- TODO 13.2: Thao tác -->
                 <td>
                     <a href="#" class="btn btn-sm btn-outline-info">Xem</a>
