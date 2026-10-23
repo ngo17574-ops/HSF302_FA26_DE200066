@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="vi"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/main}">
+<!-- TODO 9.1: Đã thêm layout:decorate="~{layout/main}" -->
+<head>
+    <title>Danh sách sinh viên</title>
+</head>
+<body>
+<section layout:fragment="content">
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="mb-0">Danh sách sinh viên</h2>
+        <!-- TODO 9.2 -->
+        <a th:href="@{/students/new}" class="btn btn-primary">+ Thêm sinh viên</a>
+    </div>
+
+    <!-- TODO 9.3: Form tìm kiếm GET tới /students; ô input name="keyword" giữ lại giá trị ${keyword} -->
+    <form th:action="@{/students}" method="get" class="row g-2 mb-3">
+        <div class="col-md-6">
+            <input type="text" name="keyword" class="form-control"
+                   placeholder="Tìm theo mã SV hoặc họ tên..."
+                   th:value="${keyword}">
+        </div>
+        <div class="col-auto">
+            <button type="submit" class="btn btn-outline-primary">Tìm kiếm</button>
+        </div>
+        <div class="col-auto" th:unless="${#strings.isEmpty(keyword)}">
+            <a th:href="@{/students}" class="btn btn-outline-secondary">Xóa lọc</a>
+        </div>
+    </form>
+
+    <!-- TODO 9.4: Nếu keyword không rỗng → hiển thị kết quả bằng literal substitution |...| -->
+    <p class="text-muted" th:unless="${#strings.isEmpty(keyword)}"
+       th:text="|Tìm thấy ${totalStudents} sinh viên cho từ khóa: ${keyword}|">
+        Tìm thấy 1 sinh viên cho từ khóa: abc
+    </p>
+
+    <!-- TODO 10: 3 thẻ thống kê -->
+    <div class="row g-3 mb-4">
+        <div class="col-md-4">
+            <div class="card stat-card text-bg-primary"><div class="card-body">
+                <div>Tổng số sinh viên</div><div class="value">0</div>
+            </div></div>
+        </div>
+        <div class="col-md-4">
+            <div class="card stat-card text-bg-success"><div class="card-body">
+                <div>GPA trung bình</div><div class="value">0.00</div>
+            </div></div>
+        </div>
+        <div class="col-md-4">
+            <div class="card stat-card text-bg-info"><div class="card-body">
+                <div>Đang học</div><div class="value">0</div>
+            </div></div>
+        </div>
+    </div>
+
+    <!-- TODO 13.1: Nếu danh sách rỗng → alert-warning "Không có sinh viên nào." -->
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover align-middle bg-white">
+            <thead class="table-dark">
+            <tr>
+                <th>#</th><th>Mã SV</th><th>Họ tên</th><th>Email</th><th>Ngày sinh</th>
+                <th>Tuổi</th><th>Ngành</th><th>GPA</th><th>Xếp loại</th><th>Trạng thái</th><th>Thao tác</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- TODO 11, 12, 13.2 -->
+            <tr>
+                <td>1</td><td>SE180001</td><td>NGUYỄN VĂN A</td><td>a@fpt.edu.vn</td>
+                <td>01/01/2004</td><td>22</td><td>Kỹ thuật phần mềm</td><td>8.00</td>
+                <td><span class="badge text-bg-primary">Giỏi</span></td>
+                <td><span class="badge text-bg-success">Đang học</span></td>
+                <td>
+                    <a href="#" class="btn btn-sm btn-outline-info">Xem</a>
+                    <a href="#" class="btn btn-sm btn-outline-warning">Sửa</a>
+                    <button class="btn btn-sm btn-outline-danger">Xóa</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+</body>
+</html>
