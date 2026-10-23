@@ -10,6 +10,11 @@ import java.util.List;
 public interface StudentRepository extends JpaRepository<Student, Long> {
 
     // TODO 19: Khai báo các derived query sau (KHÔNG cần viết thân hàm):
+    List<Student> findByStudentCodeContainingIgnoreCaseOrFullNameContainingIgnoreCaseOrderByIdAsc(String code, String name);
+
+    boolean existsByStudentCodeIgnoreCase(String studentCode);
+
+    boolean existsByStudentCodeIgnoreCaseAndIdNot(String studentCode, Long id);
     //  19.1. Tìm theo mã SV HOẶC họ tên chứa từ khóa, không phân biệt hoa thường, sắp xếp theo id tăng dần
     //        → findByStudentCodeContainingIgnoreCaseOrFullNameContainingIgnoreCaseOrderByIdAsc(String code, String name)
     //  19.2. Kiểm tra mã SV đã tồn tại (dùng khi THÊM MỚI)
