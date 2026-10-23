@@ -60,7 +60,12 @@
     </div>
 
     <!-- TODO 13.1: Nếu danh sách rỗng → alert-warning "Không có sinh viên nào." -->
-    <div class="table-responsive">
+    <div th:if="${#lists.isEmpty(students)}" class="alert alert-warning">
+        Không có sinh viên nào.
+    </div>
+
+    <!-- Ẩn bảng nếu danh sách rỗng -->
+    <div class="table-responsive" th:unless="${#lists.isEmpty(students)}">
         <table class="table table-bordered table-hover align-middle bg-white">
             <thead class="table-dark">
             <tr>
@@ -92,11 +97,14 @@
                           th:classappend="${s.active} ? 'text-bg-success' : 'text-bg-secondary'"
                           th:text="${s.active} ? 'Đang học' : 'Bảo lưu'">Đang học</span>
                 </td>
-                <!-- TODO 13.2: Thao tác -->
-                <td>
-                    <a href="#" class="btn btn-sm btn-outline-info">Xem</a>
-                    <a href="#" class="btn btn-sm btn-outline-warning">Sửa</a>
-                    <button class="btn btn-sm btn-outline-danger">Xóa</button>
+                <!-- TODO 13.2 -->
+                <td class="text-nowrap">
+                    <a th:href="@{/students/{id}(id=${s.id})}" class="btn btn-sm btn-outline-info">Xem</a>
+                    <a th:href="@{/students/{id}/edit(id=${s.id})}" class="btn btn-sm btn-outline-warning">Sửa</a>
+                    <form th:action="@{/students/{id}/delete(id=${s.id})}" method="post" class="d-inline"
+                          onsubmit="return confirm('Bạn chắc chắn muốn xóa sinh viên này?');">
+                        <button type="submit" class="btn btn-sm btn-outline-danger">Xóa</button>
+                    </form>
                 </td>
             </tr>
             </tbody>
