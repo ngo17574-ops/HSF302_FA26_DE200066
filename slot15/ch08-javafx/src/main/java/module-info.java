@@ -12,7 +12,8 @@ module com.fu.ch08 {
 
     // B2: Layout thông dụng & Form đăng nhập
     exports com.fu.ch08.b2;
-    // exports com.fu.ch08.b3;
+    // B3: Form đăng ký + Validate
+    exports com.fu.ch08.b3;
     // opens com.fu.ch08.b4 to javafx.fxml;
     // exports com.fu.ch08.b4;
     // opens com.fu.ch08.b5 to javafx.fxml;
