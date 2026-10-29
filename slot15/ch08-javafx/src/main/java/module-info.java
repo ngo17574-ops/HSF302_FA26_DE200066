@@ -10,8 +10,8 @@ module com.fu.ch08 {
     // B1: Làm quen Controls & Xử lý sự kiện (Đặt đồ uống)
     exports com.fu.ch08.b1;
 
-    // TODO: Bỏ comment khi thực hiện các bài tiếp theo:
-    // exports com.fu.ch08.b2;
+    // B2: Layout thông dụng & Form đăng nhập
+    exports com.fu.ch08.b2;
     // exports com.fu.ch08.b3;
     // opens com.fu.ch08.b4 to javafx.fxml;
     // exports com.fu.ch08.b4;
