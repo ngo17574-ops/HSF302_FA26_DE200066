@@ -14,8 +14,9 @@ module com.fu.ch08 {
     exports com.fu.ch08.b2;
     // B3: Form đăng ký + Validate
     exports com.fu.ch08.b3;
-    // opens com.fu.ch08.b4 to javafx.fxml;
-    // exports com.fu.ch08.b4;
+    // B4: FXML + Controller + CSS
+    opens com.fu.ch08.b4 to javafx.fxml;
+    exports com.fu.ch08.b4;
     // opens com.fu.ch08.b5 to javafx.fxml;
     // exports com.fu.ch08.b5;
     // opens com.fu.ch08.b6 to javafx.fxml;
