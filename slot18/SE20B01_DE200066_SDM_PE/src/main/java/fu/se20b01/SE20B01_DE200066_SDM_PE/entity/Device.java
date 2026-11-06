@@ -1,5 +1,6 @@
 package fu.se20b01.SE20B01_DE200066_SDM_PE.entity;
 import  jakarta.persistence.*;
+import org.springframework.cglib.core.Local;
 
 import javax.swing.*;
 import java.math.BigDecimal;
@@ -28,6 +29,9 @@ public class Device {
 
     @Column(name = "warranty_months", nullable = false)
     private int warrantyMonths;
+
+    @Column(name = "installation-date", nullable = false )
+    private LocalDate installationDate;
 
     @Column(name = "status", nullable = false, length = 10)
     private  String status;
